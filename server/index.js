@@ -2,6 +2,7 @@ const express = require('express');
 let app = express();
 const bodyParser = require('body-parser');
 const getReposByUsername = require('../helpers/github.js').getReposByUsername;
+const insertToDb = require('../database/index.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
@@ -19,8 +20,9 @@ app.post('/repos', function (req, res) {
     // console.log('res data', resData);
     // let data = JSON.parse(resData);
     resData.forEach((repo) => {
-      let repoObj = {forks: repo.forks, username: repo.owner.login, repo_url: repo.html_url, repo_name: repo.name }
+      let repoObj = {forks: repo.forks, username: repo.owner.login, url: repo.html_url, repo: repo.name }
       console.log(repoObj);
+      insertToDb.save(repoObj);
     });
   })
 });
