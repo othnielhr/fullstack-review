@@ -25,12 +25,22 @@ app.post('/repos', function (req, res) {
       // console.log(repoObj);
       insertToDb.save(repoObj);
     });
+    res.sendStatus(201);
   })
 });
 
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
+  console.log('req', req);
+  insertToDb.find()
+  .then(repos => {
+    res.send(repos);
+  })
+  .catch(err => {
+    console.log('err', err);
+    res.sendStatus(500);
+  });
 });
 
 let port = 1128;

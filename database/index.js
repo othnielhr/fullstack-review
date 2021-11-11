@@ -34,7 +34,12 @@ let save = (repoData) => {
     } else {
       console.log('saved');
     }
-  })
-}
+  });
+};
+
+let find = () => {
+  return Repo.find().sort({forks: -1}).limit(25).exec();
+};
 
 module.exports.save = save;
+module.exports.find = find;
