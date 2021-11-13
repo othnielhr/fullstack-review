@@ -9,7 +9,7 @@ var ReactEntry = (props) => {
 
   return (
     <li>
-      {console.log('entry')}
+      {/* {console.log('entry')} */}
       <span><a href={url}>{repo_name}</a> by </span><span> {username} </span><span> ({forks} forks) </span>
     </li>
   )
