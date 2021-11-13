@@ -3,14 +3,21 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       repos: []
-    }
+    };
+    this.search = this.search.bind(this);
+    this.renderRepos = this.renderRepos.bind(this);
 
+  }
+
+  componentDidMount() {
+    this.renderRepos();
   }
 
   search (term) {
@@ -26,6 +33,13 @@ class App extends React.Component {
         console.log('success', data);
       }
     })
+  }
+
+  renderRepos() {
+    console.log('rendering');
+    return axios.get('/repos').then( ({data}) => {
+      this.setState({ repos: data });
+    });
   }
 
   render () {
